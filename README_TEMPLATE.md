@@ -77,25 +77,35 @@ Banks hold large amounts of customer information across accounts, loans and tran
 ## 4. Repository Structure
 
 ```
-[project-root]/
+finance_risk_monitoring/
 │
 ├── data/
-│   ├── raw/                  # Original source CSV files
-│   └── processed/            # Cleaned and transformed CSV files
-│   
+│   ├── raw/                          # source CSV files
+│   └── processed/                    # Cleaned and transformed data
 │
+├── queries/
+│   ├── exploratory/                  # Investigative and analytical queries
+│   │   ├── customer_analysis.sql
+│   │   ├── transaction_analysis.sql
+│   │   ├── loan_risk_analysis.sql
+│   │   └── advanced_risk_analysis.sql
+│   │
+│   ├── transformations/              # Data quality checks and cleaning
+│   │   ├── clean_customers.sql
+│   │   ├── clean_accounts.sql
+│   │   ├── clean_loans.sql
+│   │   ├── clean_transactions.sql
+│   │   └── clean_addresses.sql
+│   │
+│   └── final/                        # SQL views used for Power BI
+│       └── power_bi_views.sql
 │
+├── visuals/                          # Dashboard screenshots and ERD
+│   ├── erd.png
+│   ├── risk_overview_dashboard.png
+│   └── risk_investigation_dashboard.png
 │
-├── queries/  
-│   ├── exploratory/          # Ad-hoc or investigative queries
-│   ├── transformations/      # Data quality/cleaning
-│   └── final/                SQL views used for Power BI
-│
-│
-├── visuals/                  # Dashboard screenshots and ERD diagrams
-│
-│
-└── README.md                 # Project documentation
+└── README.md                         # Project documentation
 ```
 
 
