@@ -1,10 +1,9 @@
 # Which customers show signs of financial risk, what behaviours distinguish them, and where should the bank prioritise monitoring?
-> *One sentence. What did you analyze, build, or solve - and why does it matter?*
+I explored customer balances, loans and transaction patterns to find customers showing multiple signs of financial pressure, then built a monitoring framework and Power BI dashboard to highlight those needing closer review.
 
 ---
 
 ## ⚙️ Project Type Flags
-> *Check what applies. This helps reviewers and collaborators understand the nature of the work at a glance. Delete this block before publishing.*
 
 - [x] Exploratory Data Analysis (EDA)
 - [x] SQL Analysis / Querying
@@ -13,7 +12,7 @@
 - [ ] Predictive Modelling / Machine Learning
 - [x] Data Cleaning / Wrangling
 - [x] End-to-End (multiple of the above)
-- [ ] Other: ___________
+
 
 ---
 
@@ -476,5 +475,4 @@ Data Analyst
 
 ---
 
-*Last updated: [Month YYYY]*
-*If this template helped you, consider starring the repository.*
+*Last updated: September 2026 
