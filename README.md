@@ -80,8 +80,8 @@ Banks hold large amounts of customer information across accounts, loans and tran
 finance_risk_monitoring/
 │
 ├── data/
-│   ├── raw/                          # source CSV files
-│   └── processed/                    # Cleaned and transformed data
+│    └── raw/                          # source CSV files
+│    
 │
 ├── queries/
 │   ├── exploratory/                  # Investigative and analytical queries
@@ -385,19 +385,19 @@ Each customer receives one point for each of the following conditions:
 ## 9. Key Insights
 **Insight 1: Financial vulnerability appeared through different behaviours rather than one universal warning sign**  
 The analysis found 
-**10** customers with negative account balances and **34** overdue loans representing 1.67M in principal exposure, but no customer appeared in both groups. Negative balances were also uncommon across all customer types: 1.51% of Large Enterprise customers had a negative balance compared with 0.57% of both Individual and Small Business customers. Overdue loans showed a similar but modest difference, affecting 3.53% of Large Enterprise customers, 2.85% of Individuals and 2.27% of Small Businesses. These results suggest that financial vulnerability was not represented by one consistent behaviour or customer segment, supporting the use of multiple indicators when deciding who requires closer monitoring.
+**10 customers with negative account balances** and **34 overdue loans representing 1.67M in principal exposure,** but **no customer appeared in both groups.** Negative balances were also uncommon across all customer types: **1.51% of Large Enterprise customers** had a negative balance compared with **0.57% of both Individual and Small Business customers.*** Overdue loans showed a similar but modest difference, affecting **3.53% of Large Enterprise customers, 2.85% of Individuals and 2.27% of Small Businesses**. These results suggest that financial vulnerability was not represented by one consistent behaviour or customer segment, supporting the use of multiple indicators when deciding who requires closer monitoring.
 
 **Insight 2: Overdue lending represented a smaller but important portion of overall loan exposure**  
-Of the 330 cleaned loan records, 239 were Active, 57 were Paid Off and 34 were Overdue. Active loans represented 12.41M of principal exposure, compared with 3.00M in Paid Off loans and 1.67M in Overdue loans. Although overdue exposure represented a relatively small share of total loan exposure, its importance becomes clearer at customer level because some customers carried overdue borrowing alongside other indicators of financial pressure. This made overdue status more useful when considered together with a customer's overall loan exposure and account position rather than as an isolated count of overdue loans.
+Of the **330 cleaned loan records, 239 were Active, 57 were Paid Off and 34 were Overdue**. Active loans represented **12.41M of principal exposure**, compared with **3.00M in Paid Off loans** and **1.67M in Overdue loans**. Although overdue exposure represented a relatively small share of total loan exposure, its importance becomes clearer at customer level because some customers carried overdue borrowing alongside other indicators of financial pressure. This made overdue status more useful when considered together with a customer's overall loan exposure and account position rather than as an isolated count of overdue loans.
 
 **Insight 3: Comparing loan exposure with account balances revealed customers whose borrowing was large relative to their financial position**  
-Looking only at loan values did not show whether the exposure was substantial relative to the funds held by each customer. The analysis therefore compared total loan exposure with total positive account balances and used loan exposure exceeding balance as an additional monitoring indicator. This relationship was particularly visible among the Higher Priority group: Cristobal Lowery held 141,014.24 in loan exposure against a balance of 37,540.05; Jae Bowman held 79,096.89 against 32,750.67; Laine Montgomery held 116,582.65 against 102,535.66; and Regena Atkinson held 104,062.33 against 23,432.34. All four also had overdue loan exposure, showing why the relationship between borrowing, balances and repayment status provided more context than loan value alone.
+Looking only at loan values did not show whether the exposure was substantial relative to the funds held by each customer. The analysis therefore compared total loan exposure with total positive account balances and used loan exposure exceeding balance as an additional monitoring indicator. This relationship was particularly visible among the Higher Priority group: Cristobal Lowery held **141,014.24 in loan exposure against a balance of 37,540.05**; Jae Bowman held **79,096.89 against 32,750.67**; Laine Montgomery held **116,582.65 against 102,535.66**; and Regena Atkinson held **104,062.33 against 23,432.34**. All four also had overdue loan exposure, showing why the relationship between borrowing, balances and repayment status provided more context than loan value alone.
 
 **Insight 4: Transaction monitoring was more meaningful when customer behaviour was compared with the customer's own baseline**  
-Transaction analysis examined outgoing and incoming frequency and value, net transaction flow and customers' largest outgoing transactions. Rather than defining every transaction above a fixed amount as unusual, the analysis compared each customer's largest outgoing transaction with their own average outgoing transaction value. A transaction at least twice the customer's average was treated as a monitoring indicator. This approach accounts for differences in normal transaction behaviour between customers and allowed unusual activity to contribute to the overall monitoring framework without treating a large transaction alone as evidence of financial risk.
+Transaction analysis examined outgoing and incoming frequency and value, net transaction flow and customers' largest outgoing transactions. Rather than defining every transaction above a fixed amount as unusual, the analysis compared **each customer's largest outgoing transaction** with their **own average outgoing transaction value**. A transaction at least twice the customer's average was treated as a monitoring indicator. This approach accounts for differences in normal transaction behaviour between customers and allowed unusual activity to contribute to the overall monitoring framework without treating a large transaction alone as evidence of financial risk.
 
 **Insight 5: Combining the indicators reduced 1,100 customers to five Higher Priority cases for focused review**  
-The final framework combined four indicators — negative balances, overdue loans, loan exposure exceeding positive account balances and unusually large outgoing transactions — into a Risk Score from 0 to 4. Customers scoring 0–1 were classified as Lower Priority, 2 as Moderate Priority and 3–4 as Higher Priority. Only five customers reached Higher Priority, and each triggered three of the four indicators. This demonstrates the main value of the framework: rather than treating thousands of customers or individual warning signs equally, it identifies a small group where several concerning behaviours occur together and gives management a clearer starting point for further investigation.
+The final framework combined four indicators — negative balances, overdue loans, loan exposure exceeding positive account balances and unusually large outgoing transactions — into a Risk Score from 0 to 4. Customers scoring **0–1 were classified as Lower Priority**, **2 as Moderate Priority** and **3–4 as Higher Priority**. Only **five customers reached Higher Priority**, and each triggered three of the four indicators. This demonstrates the main value of the framework: rather than treating thousands of customers or individual warning signs equally, it identifies a small group where several concerning behaviours occur together and gives management a clearer starting point for further investigation.
 
 Higher Priority customer transaction activity was then examined by branch to understand where this activity was occurring, with **Branch 6 recording the highest transaction value from Higher Priority customers**. This does not imply that Branch 6 caused the behaviour or experienced greater financial loss; it simply identifies where monitoring teams may encounter a greater concentration of transaction value associated with the customers already prioritised by the framework.
 
@@ -468,7 +468,7 @@ Higher Priority customer transaction activity was then examined by branch to und
 Data Analyst
 
 - 🔗 oseimishaella385-cell
-- 💼 [Portfolio or GitHub profile URL]
+- 💼 www.linkedin.com/in/mishaella-osei-1510mo
 - 📧 Email - Oseimishaella385@gmail.com
 
 ---
