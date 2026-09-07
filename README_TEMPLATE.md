@@ -404,98 +404,41 @@ Higher Priority customer transaction activity was then examined by branch to und
 
 ## 11. Assumptions & Limitations
 
-<!--
-  WHAT GOOD LOOKS LIKE:
-  Assumption: "Transaction records were assumed to be complete for all five regions.
-               No validation was performed against source system record counts."
-  Limitation: "The analysis cannot distinguish between returns initiated by
-               the customer vs. returns initiated by the business (e.g., recalls).
-               If business-initiated returns are concentrated in Region A, the
-               return rate finding may reflect a policy decision, not a quality issue."
-
-  WHAT TO AVOID:
-  ❌ Leaving this section blank or writing "None known."
-     Every project has limitations. Documenting them is a sign of
-     analytical maturity - not a confession of failure.
--->
-
-### Assumptions
-- [What did you treat as true without being able to verify?]
-- [What simplifications did you make for scope or feasibility?]
-- [What domain rules or definitions did you accept as given?]
-
-### Limitations
-- [What gaps exist in the data?]
-- [What analysis was out of scope but could affect interpretation?]
-- [What would a more rigorous version of this project include?]
-- [Are there known biases in the data source or collection method?]
-
-Account status analysis: Account status was explored as an additional monitoring factor. Among the five Higher Priority customers, four had active accounts and one had an inactive account; none had closed accounts. Given the small Higher Priority group and lack of a clear pattern, account status was not added to the risk score or final dashboard.
-> *The goal here is pre-emptive Q&A. What would a thoughtful skeptic push back on? Document the answer here, before they ask.*
-
-## 11. Assumptions & Limitations
-
-The analysis was designed as an exploratory customer-monitoring framework rather than a predictive risk model. The following assumptions and limitations define how the findings should be interpreted.
-
 ### Assumptions
 
-- **Selected behaviours were treated as monitoring indicators, not confirmed risk outcomes:** Negative account balances, overdue loans, loan exposure exceeding positive account balances and unusually large outgoing transactions were treated as behaviours that may justify closer review. The presence of any of these indicators does not by itself demonstrate that a customer is financially distressed or will generate a financial loss.
+- **Risk indicators represent monitoring signals, not confirmed financial risk:** Negative balances, overdue loans, high loan exposure and unusually large outgoing transactions were treated as behaviours that may justify closer review. Triggering an indicator does not mean a customer is financially distressed or will generate a loss.
 
-- **Negative balances were treated as valid financial behaviour:** Ten customers had negative account balances. These values were retained because a negative balance is financially plausible and there was no evidence in the dataset that the values were data-entry errors. This allowed negative balances to be explored as a potential vulnerability indicator rather than removing them during cleaning.
+- **Loan principal was used as a measure of exposure:** The dataset provides original loan principal but not the remaining outstanding balance. Total Loan Exposure therefore represents the principal associated with a customer rather than the bank's confirmed current exposure.
 
-- **Principal amount was used as a proxy for loan exposure:** The dataset provides the original `PrincipalAmount` of each loan but does not provide the remaining outstanding balance. Total Loan Exposure and Overdue Loan Exposure therefore represent principal amounts associated with customers rather than confirmed amounts currently owed. This was considered sufficient for comparing relative exposure within the dataset, but it should not be interpreted as the bank's exact current credit exposure.
+- **Negative balances were treated as valid financial behaviour:** The 10 negative account balances were retained because they were financially plausible and there was no evidence that they were data-entry errors.
 
-- **Loan exposure was evaluated relative to positive account balances:** High Loan Exposure was defined as total loan exposure exceeding a customer's total positive account balance. This was intended to provide more context than ranking customers by loan size alone. Account balances, however, represent only the funds visible in this dataset and should not be interpreted as a complete measure of a customer's wealth, income, liquidity or ability to repay.
-
-- **Unusually large transactions were defined relative to each customer's own activity:** A customer's largest outgoing transaction was flagged when it was at least twice their average outgoing transaction value. A customer-specific baseline was used because normal transaction sizes differ between customers. The 2× threshold is an exploratory rule developed for this project and is not presented as an established banking or regulatory threshold.
-
-- **Loan status categories were accepted as provided:** Loans labelled Active, Paid Off or Overdue were assumed to accurately represent their status in the source data. The dataset does not provide additional information such as number of days overdue, missed payment history or repayment schedules that would allow the severity of overdue borrowing to be independently assessed.
+- **Large transactions were assessed relative to each customer's own behaviour:** An outgoing transaction was considered unusually large when the customer's largest transaction was at least twice their average outgoing transaction value. This 2× threshold was created for exploratory monitoring and is not an established banking risk threshold.
 
 ### Limitations
 
-- **The Risk Score is rule-based and has not been statistically validated:** The four indicators each contribute one point, meaning they are given equal importance in the final score. There is no confirmed outcome variable in the dataset that could be used to test whether one indicator is more strongly associated with future financial loss than another. The 0–1 Lower, 2 Moderate and 3–4 Higher Priority thresholds should therefore be interpreted as a transparent prioritisation framework rather than validated risk classifications.
+- **The monitoring framework is rule-based, not predictive:** Each of the four indicators contributes one point to the Risk Score and is therefore weighted equally. The score and Lower, Moderate and Higher Priority thresholds have not been statistically validated and should be used to prioritise further review rather than predict future outcomes.
 
-- **Individual indicators identified different types of financial behaviour:** The analysis found 10 customers with negative balances and 34 overdue loans representing 1.67M in principal exposure, but no customer appeared in both groups. This demonstrates why one indicator should not be interpreted as a complete measure of customer risk. It also means that the final monitoring framework depends on the selected combination of indicators and could produce different classifications if alternative indicators or thresholds were used.
+- **No confirmed financial loss or default outcome is available:** The dataset does not show whether customers subsequently defaulted or generated a financial loss. Higher Priority therefore means that multiple monitoring indicators were present, not that those customers are confirmed high-risk or will cause future losses.
 
-- **The Higher Priority population is very small:** Only five of the 1,100 customers were classified as Higher Priority, with each triggering three of the four monitoring indicators. These customers provide useful cases for focused review, but patterns within a group of five should not be generalised to the wider customer population. A larger dataset or additional periods of customer history would be required to determine whether the same combinations of indicators repeatedly identify customers requiring greater attention.
+- **The Higher Priority group is small:** Only five of the 1,100 customers were classified as Higher Priority. Patterns observed among these five customers are useful for investigation but should not be generalised to the wider customer population without additional data and validation.
 
-- **Customer-type differences should be interpreted cautiously:** Large Enterprise customers had the highest observed negative-balance rate at 1.51%, compared with 0.57% for both Individuals and Small Businesses, and the highest proportion of customers with overdue loans at 3.53%, compared with 2.85% for Individuals and 2.27% for Small Businesses. These differences were descriptive and were not statistically tested. They therefore provide context for monitoring but are not sufficient evidence that Large Enterprise customers are inherently more financially risky.
+- **Account status did not provide a clear additional signal:** Account status was explored as a possible monitoring factor. Four of the five Higher Priority customers had Active accounts, one had an Inactive account and none had Closed accounts. Given the small group and lack of a clear pattern, account status was not added to the Risk Score or dashboard.
 
-- **Account status did not provide a clear additional monitoring signal:** Account status was explored after the initial monitoring framework was developed to determine whether Active, Inactive or Closed accounts were associated with monitoring priority. Among the five Higher Priority customers, four had Active accounts and one had an Inactive account; none had Closed accounts. Given the small Higher Priority population and absence of a clear pattern, account status was not incorporated into the Risk Score or final dashboard. This was treated as a useful exploratory non-finding rather than forcing an additional variable into the framework.
+- **Transaction coverage is incomplete in later periods:** Transaction data spans 2020–2026, but records become incomplete and sparse after February 2024. Monthly trend analysis was therefore limited to 2020–2023 to avoid interpreting incomplete periods as genuine changes in customer behaviour.
 
-- **Transaction history is incomplete across the full available period:** Clean transaction records span 2020-01-01 to 2026-08-28, but records become incomplete and sparse after February 2024. Monthly transaction trend analysis was therefore restricted to 2020–2023. Trends observed during this complete period should not automatically be assumed to continue into later years.
-
-- **The transaction indicator captures relative size, not the reason for the transaction:** The analysis examined outgoing and incoming transaction frequency and value, net transaction flow and unusually large outgoing transactions. However, the dataset does not provide enough contextual information to determine why a transaction occurred or whether an unusually large transaction was expected. The Large Transaction Indicator therefore identifies behaviour that differs from a customer's typical transaction size but does not establish that the transaction itself is problematic.
-
-- **Account balances provide only a snapshot of the information available in the dataset:** Comparing loan exposure with account balances helped identify customers whose borrowing was high relative to funds held in their accounts, particularly among several Higher Priority customers. However, the analysis does not include customer income, external assets, liabilities held elsewhere, credit history or other information that a bank would normally use when assessing a customer's financial position.
-
-- **Branch results measure where Higher Priority customer activity occurred, not branch performance or risk:** Branch 6 recorded the highest transaction value associated with Higher Priority customers. This does not demonstrate that Branch 6 caused the behaviour, has weaker controls or experienced greater financial loss. Branch was attached to transaction activity, while loans were associated with customer accounts, so the branch analysis should only be interpreted as showing where transaction value from already-prioritised customers was concentrated.
-
-- **No confirmed financial loss outcome is available:** The dataset does not provide a validated outcome showing whether customers subsequently defaulted, generated a loss or otherwise experienced a confirmed adverse financial event. The project can therefore identify customers displaying combinations of behaviours that may justify closer monitoring, but it cannot establish that Higher Priority customers will cause future losses.
-
-- **The analysis is descriptive rather than causal:** Relationships observed between balances, borrowing, overdue status, transaction behaviour, customer type and monitoring priority show patterns within this dataset. They do not establish that one behaviour caused another. For example, high loan exposure relative to account balance may warrant closer review, but the analysis cannot conclude that it causes overdue borrowing or financial difficulty.
+- **Branch activity should not be interpreted as branch risk:** Branch 6 recorded the highest transaction value associated with Higher Priority customers, but this only shows where their transaction activity was concentrated. It does not demonstrate that Branch 6 caused the behaviour, has greater financial risk or experienced greater losses.
 
 ---
 
 ## 12. Future Enhancements
 
-<!--
-  WHAT GOOD LOOKS LIKE:
-  ✅ "Automate the monthly data pull from the POS export folder using
-      a scheduled Python script, replacing the current manual process."
-  ✅ "Expand the return rate analysis to include carrier-level data,
-      which was unavailable in this dataset but exists in the logistics system."
+- [ ] **Validate the monitoring framework against known customer outcomes:** Add historical default, repayment or confirmed financial loss data to test whether customers receiving higher Risk Scores are actually more likely to experience adverse financial outcomes.
 
-  WHAT TO AVOID:
-  ❌ "Add a machine learning model."
-     (Vague, and disconnected from the actual findings of this project.)
-  ❌ Listing aspirational features that don't follow logically from the work.
--->
+- [ ] **Refine the Risk Score using historical evidence:** Evaluate whether the four indicators should have different weights and whether the current Lower, Moderate and Higher Priority thresholds remain appropriate once validated outcome data is available.
 
-- [ ] [Enhancement 1 - specific and traceable to a real gap in this project]
-- [ ] [Enhancement 2]
-- [ ] [Enhancement 3]
-- [ ] [Enhancement 4]
+- [ ] **Improve loan exposure measurement:** Incorporate outstanding loan balances, repayment history, missed payments and days overdue instead of relying on original principal amounts, providing a more accurate view of each customer's current lending exposure.
+
+- [ ] **Develop dynamic transaction monitoring:** Replace the exploratory 2× average transaction rule with a rolling customer baseline that considers recent transaction frequency and value, allowing unusual activity to be identified as customer behaviour changes over time.
 
 ---
 
