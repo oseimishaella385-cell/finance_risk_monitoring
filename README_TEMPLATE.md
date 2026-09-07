@@ -457,9 +457,9 @@ Higher Priority customer transaction activity was then examined by branch to und
 **Mishaella Osei**
 Data Analyst
 
-- 🔗 [LinkedIn URL]
+- 🔗 oseimishaella385-cell
 - 💼 [Portfolio or GitHub profile URL]
-- 📧 [Email - Oseimishaella385@gmail.com]
+- 📧 Email - Oseimishaella385@gmail.com
 
 ---
 
