@@ -249,6 +249,7 @@
 | `AccountID` | INT | Unique identifier for each account | 200000 |
 | `CustomerID` | INT | Identifies the customer who owns the account | 10330 |
 | `AccountTypeID` | INT | Identifies the type of account | 2 |
+| `AccountStatusID` | INT | Identifies the current status of the account | 1 |
 | `Balance` | DECIMAL | Account balance | 35794.37 |
 | `OpeningDate` | VARCHAR | Original account opening date | 2018-04-06 00:00:00 |
 | `CleanOpeningDate` | DATE | Standardised account opening date used for analysis | 2018-04-06 |
@@ -291,8 +292,6 @@
 | `Description` | VARCHAR | Transaction description | Transaction 1 |
 | `CleanTransactionDate` | DATE | Standardised transaction date used for analysis | 2023-05-12 |
 
-
-
 > **Row count (approx.):** 12,296
 > **Date range:** 2020-01-01 – 2026-08-28 
 > **Key join/relationship:** `AccountOriginID` and `AccountdestinationID` → `accounts_clean.AccountID`; `TransactionTypeID` → `transaction_types.TransactionTypeID`; `BranchID` → `branches.BranchID`
@@ -310,7 +309,83 @@
 > **Row count (approx.):** 1210
 > **Key join/relationship:**  `AddressID` is referenced by customer and branch records.
 
+### Dataset / Table: `branches`
 
+| Field Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `BranchID` | INT | Unique identifier for each branch | 1 |
+| `BranchName` | VARCHAR | Name of the branch | Branch 1 |
+| `AddressID` | INT | Links the branch to its address | 733 |
+
+> **Row count:** 50  
+> **Key relationship:** `AddressID` → `addresses_clean.AddressID`
+
+### Lookup Table: `customer_types`
+
+Maps each `CustomerTypeID` to a customer category:
+
+| CustomerTypeID | TypeName |
+|---:|---|
+| 1 | Individual |
+| 2 | Small Business |
+| 3 | Large Enterprise |
+
+> **Row count:** 3  
+> **Key relationship:** `CustomerTypeID` → `customers_clean.CustomerTypeID`
+
+### Lookup Table: `transaction_types`
+
+Maps each transaction to its transaction type.
+
+| TransactionTypeID | TypeName |
+|---:|---|
+| 1 | Deposit |
+| 2 | Withdrawal |
+| 3 | Transfer |
+| 4 | Payment |
+
+> **Row count:** 4  
+> **Key relationship:** `transactions_clean.TransactionTypeID` → `transaction_types.TransactionTypeID`
+
+### Dataset / Table: `loan_statuses`
+
+Reference table defining the possible status of a loan.
+
+| LoanStatusID | StatusName |
+|---:|---|
+| 1 | Active |
+| 2 | Paid Off |
+| 3 | Overdue |
+
+> **Row count:** 3  
+> **Key relationship:** `loans_clean.LoanStatusID` → `loan_statuses.LoanStatusID`
+
+### Dataset / Table: `account_types`
+
+Reference table defining the different types of customer accounts.
+
+| AccountTypeID | TypeName |
+|---:|---|
+| 1 | Checking |
+| 2 | Savings |
+| 3 | Payroll |
+| 4 | Business |
+| 5 | Youth |
+
+> **Row count:** 5  
+> **Key relationship:** `accounts_clean.AccountTypeID` → `account_types.AccountTypeID`
+
+### Dataset / Table: `account_statuses`
+
+
+| AccountStatusID | StatusName |
+|---:|---|
+| 1 | Active |
+| 2 | Inactive |
+| 3 | Closed |
+
+> **Row count:** 3
+> **Key relationship:** `accounts_clean.AccountStatusID` → `account_statuses.AccountStatusID`
 ---
 
 ## 7. ERD - Entity Relationship Diagram
@@ -538,6 +613,7 @@ erDiagram
 - [What would a more rigorous version of this project include?]
 - [Are there known biases in the data source or collection method?]
 
+Account status analysis: Account status was explored as an additional monitoring factor. Among the five Higher Priority customers, four had active accounts and one had an inactive account; none had closed accounts. Given the small Higher Priority group and lack of a clear pattern, account status was not added to the risk score or final dashboard.
 > *The goal here is pre-emptive Q&A. What would a thoughtful skeptic push back on? Document the answer here, before they ask.*
 
 ---
