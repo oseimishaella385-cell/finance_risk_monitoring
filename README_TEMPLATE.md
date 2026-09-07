@@ -347,7 +347,7 @@ Maps each transaction to its transaction type.
 > **Row count:** 4  
 > **Key relationship:** `transactions_clean.TransactionTypeID` → `transaction_types.TransactionTypeID`
 
-### Dataset / Table: `loan_statuses`
+### Lookup Table: `loan_statuses`
 
 Reference table defining the possible status of a loan.
 
@@ -360,7 +360,7 @@ Reference table defining the possible status of a loan.
 > **Row count:** 3  
 > **Key relationship:** `loans_clean.LoanStatusID` → `loan_statuses.LoanStatusID`
 
-### Dataset / Table: `account_types`
+### Lookup Table: `account_types`
 
 Reference table defining the different types of customer accounts.
 
@@ -375,7 +375,7 @@ Reference table defining the different types of customer accounts.
 > **Row count:** 5  
 > **Key relationship:** `accounts_clean.AccountTypeID` → `account_types.AccountTypeID`
 
-### Dataset / Table: `account_statuses`
+### Lookup Table: `account_statuses`
 
 
 | AccountStatusID | StatusName |
