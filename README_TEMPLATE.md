@@ -38,58 +38,16 @@
 ## 1. Project Overview
 
 <!--
-  Write 3–5 sentences in plain language.
-  Cover: context → problem → approach → outcome.
-  Read it out loud. If it sounds like a form - rewrite it.
-
-  WHAT GOOD LOOKS LIKE:
-  "A mid-size retail business was seeing inconsistent revenue across
-  its regional stores but couldn't identify the root cause. This project
-  explored 18 months of transaction data across five regions to determine
-  whether underperformance was driven by sales volume, pricing, or return
-  rates. The analysis revealed that one region's gap was almost entirely
-  explained by an unusually high return rate on a single product category -
-  a finding invisible in the company's top-level reporting."
-
-  WHAT TO AVOID:
-  "This project analyzes sales data to find trends and insights."
-  (Too vague. Could describe 10,000 projects. Describes none of them.)
--->
-
-**Context:** [The business, research, or personal situation that motivated this project.]
-
-**Problem Statement:** [The specific question or challenge you were addressing.]
-
-**Approach:** [In 1–2 sentences - how did you tackle it?]
-
-**Outcome:** [What did you produce or discover?]
+Banks hold large amounts of customer information across accounts, loans and transactions, but individual warning signs may not provide enough context to determine which customers require closer monitoring. This project was built around the business question: **Which customers show signs of financial risk, what behaviours distinguish them, and where should the bank prioritise monitoring?** Using MySQL, the dataset of 1,100 customers was cleansed and analysed, then explored to investigate account balances, loan exposure, overdue borrowing and unusual transaction behaviour to understand how these indicators appeared individually and grouped. It was found that no single behaviour repeatedly identified customers as a concern; however, combining more indicators into a rule-based monitoring framework identified **5 Higher Priority Customers**, several of whom showed substantial loan exposure relative to their account balances alongside other warning signs. The findings were presented in an interactive Power BI dashboard to help focus monitoring and further investigation on customers displaying multiple indicators.
 
 ---
 
 ## 2. Objectives
+- **Primary Objective:** Identify customers displaying multiple financial risk indicators and develop a transparent framework for prioritising them for further monitoring.
 
-<!--
-  Write objectives that are specific enough to succeed or fail.
-  Use action-oriented verbs: Identify, Determine, Quantify, Build, Evaluate.
+- **Secondary Objective 1:** Determine which account, loan and transaction behaviours — including negative balances, overdue loans, high loan exposure and unusually large transactions — may indicate greater financial vulnerability.
 
-  WHAT GOOD LOOKS LIKE:
-  ✅ "Determine whether customer churn rate correlates with support ticket volume."
-  ✅ "Identify the top three revenue-driving product categories across all regions."
-  ✅ "Build a reproducible pipeline that ingests and cleans daily sales exports."
-
-  WHAT TO AVOID:
-  ❌ "Explore the data."
-  ❌ "Gain insights."
-  ❌ "Understand trends."
-  (These can't fail - which means they can't succeed either.)
--->
-
-- **Primary Objective:** [The main thing you set out to do]
-- **Secondary Objective 1:** [Supporting goal]
-- **Secondary Objective 2:** [Supporting goal]
-- **Secondary Objective 3:** [Remove if not applicable]
-
-> 💡 *Every analysis decision in this project traces back to one of these objectives.*
+- **Secondary Objective 2:** Evaluate how these indicators vary across customer types and whether additional factors, such as account status, provide useful information for customer monitoring.
 
 ---
 
@@ -107,19 +65,14 @@
 
 ### Tools & Technologies
 
-<!--
-  List only what you actually used on this project.
-  This is not your skills section - it's the project's technical context.
--->
-
 | Category | Tool(s) Used |
 |----------|-------------|
 | Data Storage |  CSV files |
 | Data Processing | SQL |
 | Analysis | custom SQL queries |
 | Visualization |  Power BI |
-| Version Control | GitHub] |
-| Documentation | [e.g., Markdown, Notion] |
+| Version Control | GitHub |
+| Documentation |  Markdown |
 
 
 ---
@@ -130,70 +83,30 @@
 [project-root]/
 │
 ├── data/
-│   ├── raw/                  # Original, unmodified source data - never edited
-│   ├── processed/            # Cleaned and transformed data
-│   └── external/             # Reference data, lookup tables, third-party files
+│   ├── raw/                  # Original source CSV files
+│   └── processed/            # Cleaned and transformed CSV files
+│   
 │
-├── notebooks/                # Jupyter, R Markdown, or Colab notebooks
 │
-├── scripts/                  # Reusable .py, .R, or .sh processing files
 │
-├── queries/                  # SQL files (retain this folder for SQL-heavy projects)
+├── queries/  
 │   ├── exploratory/          # Ad-hoc or investigative queries
-│   ├── transformations/      # Cleaning and reshaping logic
-│   └── final/                # Production-ready or presentation queries
+│   ├── transformations/      # Data quality/cleaning
+│   └── final/                SQL views used for Power BI
 │
-├── reports/                  # Final outputs: PDFs, slide decks, Word docs
 │
-├── visuals/                  # Exported charts, dashboard screenshots, ERD diagrams
+├── visuals/                  # Dashboard screenshots and ERD diagrams
 │
-├── docs/                     # Data dictionaries, schema notes, reference material
 │
-├── project_metadata.yml      # Machine-readable metadata (optional)
-└── README.md                 # You are here
+└── README.md                 # Project documentation
 ```
 
-> ⚠️ *Delete folders you didn't use. An empty folder is worse than no folder.*
-> SQL-heavy projects: keep `queries/`. Analysis-only projects: keep `notebooks/`. Both? Keep both.
+
 
 ---
 
 ## 5. Data Workflow
-
-<!--
-  Show how data moved through your project - from source to output.
-  Every transformation decision should be traceable here.
-
-  WHAT GOOD LOOKS LIKE:
-  1. Source: "Monthly CSV exports pulled from the internal POS system.
-              Five files, one per region, covering Jan 2023–Jun 2024."
-  2. Ingestion: "Loaded into Python using pandas. Files concatenated into
-                 a single dataframe (approx. 340,000 rows)."
-  3. Cleaning: "Removed 1.2% of rows with null transaction IDs.
-                Standardised date formats across regional files.
-                Resolved product category naming inconsistencies (3 variants → 1)."
-  4. Transformation: "Created a returns_rate field at product-category level.
-                      Aggregated to weekly and regional grain for trend analysis."
-  5. Analysis: "Descriptive statistics, regional comparison, return rate
-                segmentation by product category."
-  6. Output: "Summary report (PDF), annotated notebook, processed CSV."
-
-  WHAT TO AVOID:
-  ❌ "Data was cleaned and analysed." (No chain. No decisions. No trust.)
--->
-
 ```
-[Data Source(s)]
-      ↓
-[Ingestion / Collection Method]
-      ↓
-[Cleaning & Transformation]
-      ↓
-[Analysis / Modelling / Querying]
-      ↓
-[Output / Visualisation / Reporting]
-```
-
 1. **Source:** This project used a finance dataset from Kaggle containing 10 CSV files covering customers, accounts, loans, transactions, addresses, branches and supporting lookup tables. The main analytical tables included 1,111 customer records, 1667 account records, 333 loan records and 12,319 transaction records.
 2. **Ingestion:** The CSV files were imported into MySQL; the original tables were kept as raw data, while separate tables were made for the tables requiring data corrections.
 3. **Cleaning:** Each table was assessed for duplicate records, missing values, inconsistent date formats, invalid values and relationship integrity. Removed exact duplicates, reducing customers from 1,111 to 1,100, accounts from 1,667 to 1,651, loans from 333 to 330 and transactions from 12,319 to 12,296. Blank values were standardised to NULL, mixed data formats were converted into consistent Date fields and unresolved or invalid dates were retained as NULL rather than inferred. Negative account balances were kept as they represented plausible financial behaviour rather than data errors.
@@ -204,27 +117,6 @@
 ---
 
 ## 6. Data Model & Schema
-
-<!--
-  Define your fields so that someone reading your analysis can follow along
-  without digging through your code.
-
-  WHAT GOOD LOOKS LIKE (one row example):
-  | transaction_id | string | Unique identifier per sales transaction | TXN-00482 |
-  | return_flag    | boolean | Whether the transaction included a return | TRUE |
-  | region_code    | string | Two-letter identifier for store region | "NE" |
-
-  WHAT TO AVOID:
-  ❌ Skipping this section because "the field names are self-explanatory."
-     They're not. Not to a reviewer. Not to you in six months.
-
-  📌 FOR SQL PROJECTS: If you have multiple tables, create one block per table.
-     Describe join keys and relationships here. Your ERD (Section 7) will
-     visualise what this section describes in text.
-
-  📌 FOR NON-SQL PROJECTS: Describe the shape of your dataset informally
-     if a formal schema doesn't apply. Even one paragraph is more helpful than nothing.
--->
 
 ### Dataset / Table: `Customers_clean`
 
@@ -422,23 +314,6 @@ Most relationships are many-to-one, with multiple customer, account, loan or tra
 
 ## 8. Analysis & Metrics
 
-<!--
-  Explain what you measured and how - before you share what you found.
-
-  WHAT GOOD LOOKS LIKE:
-  Metric: "Customer Return Rate"
-  Definition: "Number of transactions flagged as returns divided by total
-               transactions, calculated at product-category and regional grain."
-  Why It Matters: "Return rate - not sales volume - was hypothesised to
-                  explain regional revenue gaps. This metric tests that hypothesis."
-
-  WHAT TO AVOID:
-  ❌ Defining a metric only in code: SUM(returns) / COUNT(transaction_id)
-     That's an implementation. Write the plain-language definition here.
-     Both belong in your project - the definition in the README,
-     the implementation in the code.
--->
-
 ### Analytical Approach
 The analysis began by exploring whether individual financial behaviours could help identify customers who may require closer monitoring. Rather than assuming that one behaviour represented financial risk, I investigated several possible indicators separately before examining how they interacted.
 
@@ -464,8 +339,6 @@ The analysis followed a series of questions:
 
 7. **Where is Higher Priority customer activity occurring?**  
    Transaction activity from Higher Priority customers was aggregated by branch to identify where this activity was concentrated. This was used as a monitoring and investigation measure rather than an assessment of branch risk or financial loss.
-
-### Key Metrics Defined
 
 ### Key Metrics Defined
 
@@ -636,12 +509,12 @@ Account status analysis: Account status was explored as an additional monitoring
 
 ## 14. Author
 
-**[Your Name]**
-[Your role or title - current or target]
+**Mishaella Osei**
+Data Analyst
 
 - 🔗 [LinkedIn URL]
 - 💼 [Portfolio or GitHub profile URL]
-- 📧 [Email - optional]
+- 📧 [Email - Oseimishaella385@gmail.com]
 
 ---
 
