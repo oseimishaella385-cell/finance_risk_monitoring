@@ -399,26 +399,24 @@ Reference table defining the different types of customer accounts.
 
 ---
 
-
-```
-
-```
-
----
-
-
-```
-```
-
----
-
 **Table Relationships Summary:**
 
 | Relationship | Join Key | Type |
 |-------------|----------|------|
-| `orders` → `customers` | `customer_id` | Many-to-One |
-| `orders` → `products` | `product_id` | Many-to-One |
-| [Add rows as needed] | | |
+| `accounts_clean` → `customers_clean` | `CustomerID` | Many-to-One |
+| `loans_clean` → `accounts_clean` | `AccountID` | Many-to-One |
+| `transactions_clean` → `accounts_clean` | `AccountOriginID` → `AccountID` | Many-to-One |
+| `transactions_clean` → `accounts_clean` | `AccountdestinationID` → `AccountID` | Many-to-One |
+| `customers_clean` → `customer_types` | `CustomerTypeID` | Many-to-One |
+| `accounts_clean` → `account_types` | `AccountTypeID` | Many-to-One |
+| `accounts_clean` → `account_statuses` | `AccountStatusID` | Many-to-One |
+| `loans_clean` → `loan_statuses` | `LoanStatusID` | Many-to-One |
+| `transactions_clean` → `transaction_types` | `TransactionTypeID` | Many-to-One |
+| `transactions_clean` → `branches` | `BranchID` | Many-to-One |
+| `customers_clean` → `addresses_clean` | `AddressID` | Many-to-One |
+| `branches` → `addresses_clean` | `AddressID` | Many-to-One |
+
+Most relationships are many-to-one, with multiple customer, account, loan or transaction records linking to a single reference record.
 
 ---
 
@@ -442,25 +440,69 @@ Reference table defining the different types of customer accounts.
 -->
 
 ### Analytical Approach
+The analysis began by exploring whether individual financial behaviours could help identify customers who may require closer monitoring. Rather than assuming that one behaviour represented financial risk, I investigated several possible indicators separately before examining how they interacted.
 
-[Describe how you approached the analysis. Were you exploring patterns? Testing a hypothesis? Building and validating a pipeline? Be honest about your method - exploratory work is valid, just call it that.]
+The analysis followed a series of questions:
+
+1. **Do account balances reveal signs of financial vulnerability?**  
+   Customer balances were analysed to identify negative balances and determine whether these occurred more frequently within particular customer types.
+
+2. **Does loan behaviour provide a stronger indication of financial pressure?**  
+   Loan exposure, loan status and overdue exposure were examined to identify customers carrying substantial borrowing or overdue debt. Loan exposure was also compared with customer account balances to identify cases where borrowing exceeded available balances.
+
+3. **Do transaction patterns reveal unusual customer behaviour?**  
+   Incoming and outgoing transaction frequency and value were analysed alongside net transaction flow. Large outgoing transactions were assessed relative to each customer's own average transaction value rather than using a single fixed threshold across all customers.
+
+4. **Do multiple indicators occur together?**  
+   Individual indicators were compared to determine whether customers displaying one warning sign also displayed others. For example, negative balances were compared with overdue loans; no customers displayed both indicators at the same time. This supported using several indicators rather than relying on a single measure.
+
+5. **Can these behaviours be combined into a practical monitoring framework?**  
+   Four indicators — negative balances, overdue loans, high loan exposure and unusually large outgoing transactions — were combined into a rule-based Risk Score. Customers triggering more indicators were assigned a higher monitoring priority, allowing the analysis to narrow 1,100 customers to a small group requiring further review.
+
+6. **Are there other characteristics associated with monitoring priority?**  
+   Additional exploratory analysis tested whether account status was associated with the final monitoring categories. Among the five Higher Priority customers, four had active accounts and one had an inactive account, while none had closed accounts. As no clear pattern emerged and the Higher Priority group was small, account status was not added to the Risk Score or dashboard.
+
+7. **Where is Higher Priority customer activity occurring?**  
+   Transaction activity from Higher Priority customers was aggregated by branch to identify where this activity was concentrated. This was used as a monitoring and investigation measure rather than an assessment of branch risk or financial loss.
+
+### Key Metrics Defined
 
 ### Key Metrics Defined
 
 | Metric | Plain-Language Definition | Why It Matters |
-|--------|--------------------------|----------------|
-| `[Metric 1]` | [What it measures, in one sentence] | [What decision or question it answers] |
-| `[Metric 2]` | [What it measures, in one sentence] | [What decision or question it answers] |
-| `[Metric 3]` | [What it measures, in one sentence] | [What decision or question it answers] |
+|--------|---------------------------|----------------|
+| **Total Balance** | Combined balance across all accounts held by a customer. | Provides an overall view of the customer's available account balance. |
+| **Total Loan Exposure** | Total principal value of loans associated with a customer's accounts. | Shows the level of lending exposure associated with each customer. |
+| **Overdue Loan Exposure** | Total principal value of a customer's loans currently classified as overdue. | Identifies customers with outstanding overdue loan exposure requiring closer attention. |
+| **Net Transaction Flow** | Total incoming transaction value minus total outgoing transaction value for each customer. | Helps identify whether transaction activity is producing an overall inflow or outflow of funds. |
+| **Risk Score** | Number of monitoring indicators triggered by a customer, producing a score from 0 to 4. | Combines multiple financial behaviours into a simple method for prioritising customer review. |
+| **Monitoring Priority** | Customers are grouped as Lower (0–1), Moderate (2), or Higher Priority (3–4) based on their Risk Score. | Allows monitoring efforts to focus on customers displaying multiple risk indicators. |
 
+#### Risk Score Indicators
+
+Each customer receives one point for each of the following conditions:
+
+- **Negative Balance:** At least one account has a balance below zero.
+- **Overdue Loan:** At least one associated loan is classified as overdue.
+- **High Loan Exposure:** Total loan exposure exceeds the customer's total positive account balance.
+- **Large Transaction:** The customer's largest outgoing transaction is at least twice their average outgoing transaction value.
+
+**Risk Score:** 0–4
+
+- **0–1:** Lower Priority
+- **2:** Moderate Priority
+- **3–4:** Higher Priority
+- 
 ### Methods Used
-
-- [e.g., Descriptive statistics - distribution, central tendency, outlier detection]
-- [e.g., Trend analysis across [time period]]
-- [e.g., Segmentation / group comparison by [dimension]]
-- [e.g., Correlation analysis between [variable A] and [variable B]]
-- [e.g., SQL window functions for [specific aggregation]]
-- [e.g., Custom aggregation or transformation logic in [tool]]
+- Data quality assessment and validation before analysis.
+- Descriptive analysis of account balances, loans and transaction behaviour.
+- Customer segmentation and comparison by customer type.
+- Loan exposure and overdue loan analysis.
+- Monthly transaction trend analysis.
+- Customer-level aggregation across accounts, loans and transactions.
+- SQL window functions for ranking and month-over-month comparisons.
+- Rule-based scoring to combine multiple financial risk indicators.
+- Branch-level analysis of transaction activity associated with Higher Priority customers.
 
 ---
 
