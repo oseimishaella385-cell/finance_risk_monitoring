@@ -57,7 +57,7 @@ Banks hold large amounts of customer information across accounts, loans and tran
 |-----------|---------|
 | **In Scope** | Customer, account, loan and transaction data. Analysis covers account balances, loan exposure, overdue loans, transaction behaviour and customer monitoring priority. |
 | **Out of Scope** | Predictive risk modelling, forecasting future customer behaviour and estimating financial losses. The project uses a rule-based monitoring framework and the dataset does not provide confirmed financial loss outcomes. |
-| **Time Period** | Transaction Data ranges from 2020-2025; however, monthly transaction trend analysis is limited to 2020-2023 because transaction records are incomplete after February 2024. Customer and loan analysis used all valid available records.|
+| **Time Period** | Transaction Data ranges from 2020-2026; however, monthly transaction trend analysis is limited to 2020-2023 because transaction records are incomplete after February 2024. Customer and loan analysis used all valid available records.|
 | **Granularity** | Individual transactions, loans and accounts, summarised by customer and branch. |
 
 ### Tools & Technologies
@@ -155,8 +155,8 @@ finance_risk_monitoring/
 
 > **Row count (approx.):** 1,651
 > **Account opening date range:** 2018-01-03 – 2026-07-06 
-> **Key join/relationship:** `CustomerID` → `customers_clean.CustomerID`; `AccountTypeID` → `account_types.AccountTypeID`
-
+> **Key join/relationship:** `CustomerID` → `customers_clean.CustomerID`; `AccountTypeID` → `account_types.AccountTypeID`; 
+AccountStatusID → account_statuses.AccountStatusID.
 
 ### Dataset / Table: `loans_clean`
 
@@ -181,13 +181,13 @@ finance_risk_monitoring/
 
 | Field Name | Data Type | Description | Example Value |
 |------------|-----------|-------------|---------------|
-| `TransactionID` | BIGINT | Unique identifier for each transaction | 3000001 |
-| `AccountOriginID` | BIGINT | Account from which the transaction originated | 201103 |
-| `AccountdestinationID` | BIGINT | Account receiving the transaction | 200262 |
+| `TransactionID` | INT | Unique identifier for each transaction | 3000001 |
+| `AccountOriginID` | INT | Account from which the transaction originated | 201103 |
+| `AccountdestinationID` | INT | Account receiving the transaction | 200262 |
 | `TransactionTypeID` | BIGINT | Identifies the type of transaction | 3 |
 | `TransactionDate` | VARCHAR | Original transaction date and time | 2023-05-12 02:00:00 |
 | `Amount` | DECIMAL | Value of the transaction | 4713.48 |
-| `BranchID` | BIGINT | Identifies the branch associated with the transaction | 23 |
+| `BranchID` | INT | Identifies the branch associated with the transaction | 23 |
 | `Description` | VARCHAR | Transaction description | Transaction 1 |
 | `CleanTransactionDate` | DATE | Standardised transaction date used for analysis | 2023-05-12 |
 
@@ -399,7 +399,7 @@ Transaction analysis examined outgoing and incoming frequency and value, net tra
 **Insight 5: Combining the indicators reduced 1,100 customers to five Higher Priority cases for focused review**  
 The final framework combined four indicators — negative balances, overdue loans, loan exposure exceeding positive account balances and unusually large outgoing transactions — into a Risk Score from 0 to 4. Customers scoring **0–1 were classified as Lower Priority**, **2 as Moderate Priority** and **3–4 as Higher Priority**. Only **five customers reached Higher Priority**, and each triggered three of the four indicators. This demonstrates the main value of the framework: rather than treating thousands of customers or individual warning signs equally, it identifies a small group where several concerning behaviours occur together and gives management a clearer starting point for further investigation.
 
-Higher Priority customer transaction activity was then examined by branch to understand where this activity was occurring, with **Branch 6 recording the highest transaction value from Higher Priority customers**. This does not imply that Branch 6 caused the behaviour or experienced greater financial loss; it simply identifies where monitoring teams may encounter a greater concentration of transaction value associated with the customers already prioritised by the framework.
+**Insight 6: Branch 6 recorded the highest transaction value associated with Higher Priority customers** Higher Priority customer transaction activity was then examined by branch to understand where this activity was occurring, with **Branch 6 recording the highest transaction value from Higher Priority customers**. This does not imply that Branch 6 caused the behaviour or experienced greater financial loss; it simply identifies where monitoring teams may encounter a greater concentration of transaction value associated with the customers already prioritised by the framework.
 
 ## 10. Recommendations
 
@@ -454,11 +454,14 @@ Higher Priority customer transaction activity was then examined by branch to und
 
 ## 13. Deliverables
 
+## 13. Deliverables
+
 | Deliverable | Description | Location |
 |-------------|-------------|----------|
-| [Name] | [What it contains] | [`/path/to/file`] |
-| [Name] | [What it contains] | [`/path/to/file`] |
-| [Name] | [What it contains] | [`/path/to/file`] |
+| **SQL Analysis** | Data cleaning, exploratory analysis, customer risk analysis and final SQL reporting views used throughout the project. | [`/queries/`](queries/) |
+| **Power BI Dashboard** | Two-page Financial Risk Monitoring dashboard covering the overall risk profile and detailed customer and branch investigation. | [`/visuals/`](visuals/) |
+| **Entity Relationship Diagram (ERD)** | Visual representation of the finance data model and relationships between the analytical and lookup tables. | [`/visuals/erd.png`](visuals/erd.png) |
+| **Project Documentation** | Full documentation of the business question, methodology, analysis, findings, recommendations and limitations. | [`README.md`](README.md) |
 
 ---
 
