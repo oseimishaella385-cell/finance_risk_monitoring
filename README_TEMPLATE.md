@@ -279,10 +279,6 @@ Reference table defining the different types of customer accounts.
 
 ## 7. ERD - Entity Relationship Diagram
 
-
-
-
-### Option A - Embedded Image
 ![ERD Diagram](visuals/erd.png)
 *Eleven-table finance schema — customers, accounts, loans and transactions connected through shared IDs and supporting reference tables.*
 
@@ -377,65 +373,31 @@ Each customer receives one point for each of the following conditions:
 ---
 
 ## 9. Key Insights
+**Insight 1: Financial vulnerability appeared through different behaviours rather than one universal warning sign**  
+The analysis found 10 customers with negative account balances and 34 overdue loans representing 1.67M in principal exposure, but no customer appeared in both groups. Negative balances were also uncommon across all customer types: 1.51% of Large Enterprise customers had a negative balance compared with 0.57% of both Individual and Small Business customers. Overdue loans showed a similar but modest difference, affecting 3.53% of Large Enterprise customers, 2.85% of Individuals and 2.27% of Small Businesses. These results suggest that financial vulnerability was not represented by one consistent behaviour or customer segment, supporting the use of multiple indicators when deciding who requires closer monitoring.
 
-<!--
-  Findings + implications. Not just what happened - what it means.
+**Insight 2: Overdue lending represented a smaller but important portion of overall loan exposure**  
+Of the 330 cleaned loan records, 239 were Active, 57 were Paid Off and 34 were Overdue. Active loans represented 12.41M of principal exposure, compared with 3.00M in Paid Off loans and 1.67M in Overdue loans. Although overdue exposure represented a relatively small share of total loan exposure, its importance becomes clearer at customer level because some customers carried overdue borrowing alongside other indicators of financial pressure. This made overdue status more useful when considered together with a customer's overall loan exposure and account position rather than as an isolated count of overdue loans.
 
-  WHAT GOOD LOOKS LIKE:
-  ✅ "Return rates, not sales volume, explain Region A's underperformance.
-      Region A's return rate on home goods was 34% - more than double the
-      company average. Revenue was not lost at the point of sale; it was
-      lost post-sale through refunds. This points to a fulfilment or
-      product quality issue specific to that region, not a demand problem."
+**Insight 3: Comparing loan exposure with account balances revealed customers whose borrowing was large relative to their financial position**  
+Looking only at loan values did not show whether the exposure was substantial relative to the funds held by each customer. The analysis therefore compared total loan exposure with total positive account balances and used loan exposure exceeding balance as an additional monitoring indicator. This relationship was particularly visible among the Higher Priority group: Cristobal Lowery held 141,014.24 in loan exposure against a balance of 37,540.05; Jae Bowman held 79,096.89 against 32,750.67; Laine Montgomery held 116,582.65 against 102,535.66; and Regena Atkinson held 104,062.33 against 23,432.34. All four also had overdue loan exposure, showing why the relationship between borrowing, balances and repayment status provided more context than loan value alone.
 
-  WHAT TO AVOID:
-  ❌ "Region A had lower revenue than other regions in Q4."
-     (That's an observation. It describes what happened.
-      An insight says what it means and where to look next.)
+**Insight 4: Transaction monitoring was more meaningful when customer behaviour was compared with the customer's own baseline**  
+Transaction analysis examined outgoing and incoming frequency and value, net transaction flow and customers' largest outgoing transactions. Rather than defining every transaction above a fixed amount as unusual, the analysis compared each customer's largest outgoing transaction with their own average outgoing transaction value. A transaction at least twice the customer's average was treated as a monitoring indicator. This approach accounts for differences in normal transaction behaviour between customers and allowed unusual activity to contribute to the overall monitoring framework without treating a large transaction alone as evidence of financial risk.
 
-  Aim for 3–6 insights. Quality over quantity.
--->
+**Insight 5: Combining the indicators reduced 1,100 customers to five Higher Priority cases for focused review**  
+The final framework combined four indicators — negative balances, overdue loans, loan exposure exceeding positive account balances and unusually large outgoing transactions — into a Risk Score from 0 to 4. Customers scoring 0–1 were classified as Lower Priority, 2 as Moderate Priority and 3–4 as Higher Priority. Only five customers reached Higher Priority, and each triggered three of the four indicators. This demonstrates the main value of the framework: rather than treating thousands of customers or individual warning signs equally, it identifies a small group where several concerning behaviours occur together and gives management a clearer starting point for further investigation.
 
-**Insight 1: [Short descriptive headline]**
-[What you found + what it suggests. One short paragraph.]
-
-**Insight 2: [Short descriptive headline]**
-[What you found + what it suggests.]
-
-**Insight 3: [Short descriptive headline]**
-[What you found + what it suggests.]
-
-**Insight 4 (if applicable): [Short descriptive headline]**
-[What you found + what it suggests.]
-
----
+Higher Priority customer transaction activity was then examined by branch to understand where this activity was occurring, with **Branch 6 recording the highest transaction value from Higher Priority customers**. This does not imply that Branch 6 caused the behaviour or experienced greater financial loss; it simply identifies where monitoring teams may encounter a greater concentration of transaction value associated with the customers already prioritised by the framework.
 
 ## 10. Recommendations
 
-<!--
-  Action-oriented. Addressed to a real audience.
-  Tied explicitly to the insight that supports each one.
-
-  WHAT GOOD LOOKS LIKE:
-  Priority: High
-  Recommendation: "Conduct a fulfilment audit for home goods deliveries
-                   in Region A - specifically investigating whether returns
-                   correlate with a particular warehouse, carrier, or SKU batch."
-  Based On: Insight 1 - return rate anomaly in Region A
-  Owner: Operations / Supply Chain team
-
-  WHAT TO AVOID:
-  ❌ "Improve the return rate."
-     (Not actionable. Doesn't say who, how, or where to start.)
-  ❌ "Further analysis is needed."
-     (This is a placeholder, not a recommendation.)
--->
-
 | Priority | Recommendation | Based On | Suggested Owner |
 |----------|---------------|----------|-----------------|
-| High | [Specific, actionable step] | [Insight it comes from] | [Who should act] |
-| Medium | [Specific, actionable step] | [Insight it comes from] | [Who should act] |
-| Low | [Exploratory or longer-term suggestion] | [Insight it comes from] | [Who should act] |
+| **High** | Prioritise the five Higher Priority customers for individual review, focusing on the specific combination of indicators each customer triggered rather than treating the Risk Score alone as evidence of financial risk. | **Insight 5** – Five of 1,100 customers triggered three of the four monitoring indicators. | Risk Monitoring / Customer Review Team |
+| **High** | Introduce regular monitoring of customers whose loan exposure exceeds their positive account balances, with additional attention where overdue borrowing is also present. This would help surface customers whose borrowing appears high relative to the funds held in their accounts. | **Insights 2 & 3** – 1.67M of loan exposure was overdue, and four Higher Priority customers combined overdue exposure with loan exposure exceeding their account balances. | Credit Risk / Lending Team |
+| **Medium** | Use multiple behavioural indicators when prioritising customer reviews instead of relying on negative balances, overdue loans or transaction activity independently. The rule-based framework can be used as an initial screening tool, with cases reviewed before any action is taken. | **Insights 1 & 5** – Individual warning signs identified different customers, while combining indicators produced a focused Higher Priority group. | Risk Monitoring Team |
+| **Medium** | Review transaction activity associated with Higher Priority customers at Branch 6 and other branches with concentrated Higher Priority transaction value. The review should focus on the customers and transactions involved rather than treating branch-level activity as evidence that the branch itself is risky. | **Insight 6** – Branch 6 recorded the highest transaction value associated with Higher Priority customers. | Branch Operations / Risk Monitoring Team |
 
 ---
 
