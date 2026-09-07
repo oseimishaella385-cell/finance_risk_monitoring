@@ -226,19 +226,90 @@
      if a formal schema doesn't apply. Even one paragraph is more helpful than nothing.
 -->
 
-### Dataset / Table: `[name]`
+### Dataset / Table: `Customers_clean`
 
 | Field Name | Data Type | Description | Example Value |
 |------------|-----------|-------------|---------------|
-| `[field_1]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
-| `[field_2]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
-| `[field_3]` | [string / int / date / float / boolean] | [What this field represents] | [Non-sensitive example] |
+|`CustomerID` | INT | Unique identifier for each customer | 10000 |
+| `FirstName` | VARCHAR | Customer's first name | Maybell |
+| `LastName` | VARCHAR | Customer's last name | Acevedo |
+| `DateOfBirth` | VARCHAR | Original date of birth from the source data | 1979-12-27 00:00:00 |
+| `CustomerTypeID` | INT | Identifies the customer's type | 2 |
+| `AddressID` | INT | Links the customer to their address | 1021 |
+| `CleanDateOfBirth` | DATE | Standardised date of birth used for analysis | 1979-12-27 |
 
-> **Row count (approx.):** [X rows]
-> **Date range:** [Start] – [End]
-> **Key join / relationship:** [e.g., `orders.customer_id` → `customers.id`]
+> **Row count (approx.):** 1,100
+> **Key join / relationship:**  `CustomerTypeID` → `customer_types.CustomerTypeID`; `AddressID` → `addresses_clean.AddressID`
 
-*Add additional table blocks as needed for multi-table projects.*
+
+### Dataset / Table: `accounts_clean`
+
+| Field Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `AccountID` | INT | Unique identifier for each account | 200000 |
+| `CustomerID` | INT | Identifies the customer who owns the account | 10330 |
+| `AccountTypeID` | INT | Identifies the type of account | 2 |
+| `Balance` | DECIMAL | Account balance | 35794.37 |
+| `OpeningDate` | VARCHAR | Original account opening date | 2018-04-06 00:00:00 |
+| `CleanOpeningDate` | DATE | Standardised account opening date used for analysis | 2018-04-06 |
+
+> **Row count (approx.):** 1,651
+> **Account opening date range:** 2018-01-03 – 2026-07-06 
+> **Key join/relationship:** `CustomerID` → `customers_clean.CustomerID`; `AccountTypeID` → `account_types.AccountTypeID`
+
+
+### Dataset / Table: `loans_clean`
+
+| Field Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `LoanID` | INT | Unique identifier for each loan | 400000 |
+| `AccountID` | INT | Identifies the account associated with the loan | 201241 |
+| `LoanStatusID` | INT | Identifies the current loan status | 3 |
+| `PrincipalAmount` | DECIMAL | Original principal amount of the loan | 52255.85 |
+| `InterestRate` | DECIMAL | Interest rate associated with the loan | 0.1283 |
+| `StartDate` | VARCHAR | Original loan start date | 2021-04-05 00:00:00 |
+| `EstimatedEndDate` | VARCHAR | Original estimated loan end date | 2022-08-16 00:00:00 |
+| `CleanStartDate` | DATE | Standardised loan start date | 2021-04-05 |
+| `CleanEstimatedEndDate` | DATE | Standardised estimated loan end date | 2022-08-16 |
+
+
+> **Row count (approx.):** 330
+> **Loan start date range:** 2021-01-01 – 2026-08-29  
+> **Key join/relationship:** `AccountID` → `accounts_clean.AccountID`; `LoanStatusID` → `loan_statuses.LoanStatusID`
+
+### Dataset / Table: `transactions_clean`
+
+| Field Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `TransactionID` | BIGINT | Unique identifier for each transaction | 3000001 |
+| `AccountOriginID` | BIGINT | Account from which the transaction originated | 201103 |
+| `AccountdestinationID` | BIGINT | Account receiving the transaction | 200262 |
+| `TransactionTypeID` | BIGINT | Identifies the type of transaction | 3 |
+| `TransactionDate` | VARCHAR | Original transaction date and time | 2023-05-12 02:00:00 |
+| `Amount` | DECIMAL | Value of the transaction | 4713.48 |
+| `BranchID` | BIGINT | Identifies the branch associated with the transaction | 23 |
+| `Description` | VARCHAR | Transaction description | Transaction 1 |
+| `CleanTransactionDate` | DATE | Standardised transaction date used for analysis | 2023-05-12 |
+
+
+
+> **Row count (approx.):** 12,296
+> **Date range:** 2020-01-01 – 2026-08-28 
+> **Key join/relationship:** `AccountOriginID` and `AccountdestinationID` → `accounts_clean.AccountID`; `TransactionTypeID` → `transaction_types.TransactionTypeID`; `BranchID` → `branches.BranchID`
+
+
+### Dataset / Table: `addresses_clean`
+
+| Field Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `AddressID` | INT | Unique identifier for each address | 1 |
+| `Street` | VARCHAR | Street associated with the address | Van Ness |
+| `City` | VARCHAR | City associated with the address | Vineland |
+| `Country` | VARCHAR | Country associated with the address | United States |
+
+> **Row count (approx.):** 1210
+> **Key join/relationship:**  `AddressID` is referenced by customer and branch records.
+
 
 ---
 
