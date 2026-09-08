@@ -43,7 +43,7 @@ Banks hold large amounts of customer information across accounts, loans and tran
 ## 2. Objectives
 - **Primary Objective:** Identify customers displaying multiple financial risk indicators and develop a transparent framework for prioritising them for further monitoring.
 
-- **Secondary Objective 1:** Determine which account, loan and transaction behaviours — including negative balances, overdue loans, high loan exposure and unusually large transactions — may indicate greater financial vulnerability.
+- **Secondary Objective 1:** Determine which account, loan and transaction behaviours, including negative balances, overdue loans, high loan exposure and unusually large transactions, may indicate greater financial vulnerability.
 
 - **Secondary Objective 2:** Evaluate how these indicators vary across customer types and whether additional factors, such as account status, provide useful information for customer monitoring.
 
