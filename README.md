@@ -23,7 +23,7 @@ I explored customer balances, loans and transaction patterns to find customers s
 4. [Repository Structure](#4-repository-structure)
 5. [Data Workflow](#5-data-workflow)
 6. [Data Model & Schema](#6-data-model--schema)
-7. [ERD - Entity Relationship Diagram](#7-erd--entity-relationship-diagram) *(SQL projects)*
+7. [ERD - Entity Relationship Diagram](#7-erd--entity-relationship-diagram) 
 8. [Analysis & Metrics](#8-analysis--metrics)
 9. [Key Insights](#9-key-insights)
 10. [Recommendations](#10-recommendations)
